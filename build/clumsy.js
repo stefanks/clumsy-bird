@@ -95,8 +95,8 @@ var BirdEntity = me.ObjectEntity.extend({
     // mechanics
 	gametimer++;
     if (game.data.start) {
-      //if (me.input.isKeyPressed('fly')) {
-      if (this.guessedValue<=this.gravityForce) {
+      if (me.input.isKeyPressed('fly')) {
+      //if (this.guessedValue<=this.gravityForce) {
         var currentGrav = this.gravityForce;
         this.gravityForce = 0;
 
@@ -130,15 +130,8 @@ var BirdEntity = me.ObjectEntity.extend({
 		
 		document.body.appendChild(document.createTextNode(pipe3pos.toFixed(3) )); 
 	
-		num92 = Math.ceil((gametimer-280)/92);
-		if (gametimer<=280)
-		{
-			timeTillPipe = 280-gametimer;
-		}
-		else
-		{
-			timeTillPipe = 280+92*num92-gametimer;
-		}
+		timeTillPipe  =gametimer % 90;
+	
 
 		var ye9=0;
 		var ye8=0;
@@ -150,47 +143,47 @@ var BirdEntity = me.ObjectEntity.extend({
 		var ye2=0;
 		var ye1=0;
 		var ye0=0;
-		if ( timeTillPipe >=90) 
+		if ( timeTillPipe >=81) 
 		{
 			var ye9=1;
 			
 		}
-		else if ( timeTillPipe>=80) 
+		else if ( timeTillPipe>=72) 
 		{
 
 			var ye8=1;
 		}
-		else if ( timeTillPipe >=70) 
+		else if ( timeTillPipe >=63) 
 		{
 			var ye7=1;
 			
 		}
-		else if ( timeTillPipe >=60) 
+		else if ( timeTillPipe >=54) 
 		{
 			var ye6=1;
 			
 		}
-		else if ( timeTillPipe>=50 ) 
+		else if ( timeTillPipe>=45 ) 
 		{
 
 			var ye5=1;
 		}
-		else if ( timeTillPipe >=40) 
+		else if ( timeTillPipe >=36) 
 		{
 			var ye4=1;
 			
 		}
-		else if ( timeTillPipe >=30) 
+		else if ( timeTillPipe >=27) 
 		{
 			var ye3=1;
 			
 		}
-		else if ( timeTillPipe>=20 ) 
+		else if ( timeTillPipe>=18 ) 
 		{
 
 			var ye2=1;
 		}
-		else if ( timeTillPipe >=10) 
+		else if ( timeTillPipe >=9) 
 		{
 			var ye1=1;
 			
@@ -221,11 +214,11 @@ var BirdEntity = me.ObjectEntity.extend({
 		document.body.appendChild(document.createTextNode(', '));
 		document.body.appendChild(document.createTextNode(ye0)); 
 		
-	this.guessedValue =  -4.622112e+00 * firstFeature-3.289900e-01 * pipe1pos+9.171671e+00 * pipe2pos+5.219819e-01 * pipe3pos+8.500813e-01 * firstFeature * firstFeature-2.888971e-01 * firstFeature * ye3-3.838951e-01 * firstFeature * ye4-4.112518e+00 * pipe2pos * ye1+1.624064e+00 * pipe2pos * ye4+9.447730e-02 * firstFeature * firstFeature * ye2-2.353274e-01 * firstFeature * firstFeature * ye5+1.019512e+01;
+	// this.guessedValue =  -4.622112e+00 * firstFeature-3.289900e-01 * pipe1pos+9.171671e+00 * pipe2pos+5.219819e-01 * pipe3pos+8.500813e-01 * firstFeature * firstFeature-2.888971e-01 * firstFeature * ye3-3.838951e-01 * firstFeature * ye4-4.112518e+00 * pipe2pos * ye1+1.624064e+00 * pipe2pos * ye4+9.447730e-02 * firstFeature * firstFeature * ye2-2.353274e-01 * firstFeature * firstFeature * ye5+1.019512e+01;
 		
-	document.body.appendChild(document.createTextNode(', '));
+	//document.body.appendChild(document.createTextNode(', '));
 		
-	document.body.appendChild(document.createTextNode(this.guessedValue.toFixed(1))); 
+	//document.body.appendChild(document.createTextNode(this.guessedValue.toFixed(1))); 
 		
       } else {
         this.gravityForce += 0.4;
@@ -301,7 +294,7 @@ var PipeGenerator = me.Renderable.extend({
     this.parent(new me.Vector2d(), me.game.viewport.width, me.game.viewport.height);
     this.alwaysUpdate = true;
     this.generate = 0;
-    this.pipeFrequency = 92;
+    this.pipeFrequency = 90;
     this.pipeHoleSize = 1240;
     this.posX = me.game.viewport.width;
   },
