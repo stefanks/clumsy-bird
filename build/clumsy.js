@@ -1,3 +1,10 @@
+var pipe1pos = 0;
+var pipe2pos = 0;
+var pipe3pos = 0;
+var numpipes = 0;
+var distToClosestPipe = 0;
+var gametimer=0;
+
 var game = {
   data: {
     score : 0,
@@ -67,7 +74,7 @@ var BirdEntity = me.ObjectEntity.extend({
     this.parent(x, y, settings);
     this.alwaysUpdate = true;
     this.gravity = 0.2;
-    this.gravityForce = 0.01;
+    this.gravityForce = 0;
     this.maxAngleRotation = Number.prototype.degToRad(30);
     this.maxAngleRotationDown = Number.prototype.degToRad(90);
     this.renderable.addAnimation("flying", [0, 1, 2]);
@@ -80,13 +87,16 @@ var BirdEntity = me.ObjectEntity.extend({
     // a tween object for the flying physic effect
     this.flyTween = new me.Tween(this.pos);
     this.flyTween.easing(me.Tween.Easing.Exponential.InOut);
+	
   },
 
   update: function(dt) {
     // mechanics
+	gametimer++;
     if (game.data.start) {
       if (me.input.isKeyPressed('fly')) {
-        this.gravityForce = 0.01;
+        var currentGrav = this.gravityForce;
+        this.gravityForce = 0;
 
         var currentPos = this.pos.y;
         // stop the previous one
@@ -95,10 +105,44 @@ var BirdEntity = me.ObjectEntity.extend({
         this.flyTween.start();
 
         this.renderable.angle = -this.maxAngleRotation;
-		
-		document.body.appendChild(document.createTextNode('this is a text node'));
 
+		
+		document.body.appendChild(document.createTextNode(', '));
+		
+		document.body.appendChild(document.createTextNode(currentGrav.toFixed(1)));
+		
 	    document.body.appendChild(document.createElement('br'));
+		
+		document.body.appendChild(document.createTextNode(this.pos.y.toFixed(1) ));
+		
+		
+		document.body.appendChild(document.createTextNode(', '));
+		
+		num92 = Math.ceil((gametimer-280)/92);
+		if (gametimer<=280)
+		{
+			timeTillPipe = 280-gametimer;
+		}
+		else
+		{
+			timeTillPipe = 280+92*num92-gametimer;
+		}
+			
+		
+		document.body.appendChild(document.createTextNode(timeTillPipe)); 
+		
+		document.body.appendChild(document.createTextNode(', '));
+		
+		document.body.appendChild(document.createTextNode(pipe1pos));
+		
+		document.body.appendChild(document.createTextNode(', '));
+		
+		document.body.appendChild(document.createTextNode(pipe2pos));
+		
+		document.body.appendChild(document.createTextNode(', '));
+		
+		document.body.appendChild(document.createTextNode(pipe3pos)); 
+		
 		
       } else {
         this.gravityForce += 0.4;
@@ -185,6 +229,23 @@ var PipeGenerator = me.Renderable.extend({
           200
       );
       var posY2 = posY - me.video.getHeight() - this.pipeHoleSize;
+	  if (numpipes==0){
+	  pipe1pos = (posY + posY2)/2;
+	  }
+	  if (numpipes==1){
+	  pipe2pos = (posY + posY2)/2;
+	  	
+	  }
+	  if (numpipes==2){
+
+		  pipe3pos = (posY + posY2)/2;
+	  }
+	  if (numpipes>=3){
+	  pipe1pos = pipe2pos;
+	  pipe2pos = pipe3pos;
+	  pipe3pos = (posY + posY2)/2;  	
+	  }
+	  numpipes+=1;
       var pipe1 = new me.pool.pull("pipe", this.posX, posY);
       var pipe2 = new me.pool.pull("pipe", this.posX, posY2);
       var hitPos = posY - 100;
@@ -430,6 +491,13 @@ game.PlayScreen = me.ScreenObject.extend({
 	document.body.appendChild(document.createTextNode('New Game'));
 
     document.body.appendChild(document.createElement('br'));
+	
+	pipe1pos = -me.game.viewport.height;
+	pipe2pos = -me.game.viewport.height;
+    pipe3pos = -me.game.viewport.height;
+	
+
+    gametimer = 0;
 	
     me.audio.stop("theme");
     me.audio.play("theme", true);
