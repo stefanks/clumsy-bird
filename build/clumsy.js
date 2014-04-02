@@ -109,11 +109,9 @@ var BirdEntity = me.ObjectEntity.extend({
         this.renderable.angle = -this.maxAngleRotation;
 
 		
-		document.body.appendChild(document.createTextNode(', '));
-		
 		document.body.appendChild(document.createTextNode(currentGrav.toFixed(1)));
 		
-	    document.body.appendChild(document.createElement('br'));
+		document.body.appendChild(document.createTextNode(', '));
 		
 		firstFeature = - Math.log(524/(80+this.pos.y)-1);
 		document.body.appendChild(document.createTextNode(firstFeature.toFixed(3) ));
@@ -213,6 +211,9 @@ var BirdEntity = me.ObjectEntity.extend({
 		document.body.appendChild(document.createTextNode(ye1)); 
 		document.body.appendChild(document.createTextNode(', '));
 		document.body.appendChild(document.createTextNode(ye0)); 
+
+		
+	    document.body.appendChild(document.createElement('br'));
 		
 	// this.guessedValue =  -4.622112e+00 * firstFeature-3.289900e-01 * pipe1pos+9.171671e+00 * pipe2pos+5.219819e-01 * pipe3pos+8.500813e-01 * firstFeature * firstFeature-2.888971e-01 * firstFeature * ye3-3.838951e-01 * firstFeature * ye4-4.112518e+00 * pipe2pos * ye1+1.624064e+00 * pipe2pos * ye4+9.447730e-02 * firstFeature * firstFeature * ye2-2.353274e-01 * firstFeature * firstFeature * ye5+1.019512e+01;
 		
@@ -566,9 +567,6 @@ game.PlayScreen = me.ScreenObject.extend({
 
     document.body.appendChild(document.createElement('br'));
 	
-	document.body.appendChild(document.createTextNode('New Game'));
-
-    document.body.appendChild(document.createElement('br'));
 	
 	pipe1pos = 0;
 	pipe2pos = 0;
