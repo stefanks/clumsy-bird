@@ -54,6 +54,7 @@ game.resources = [
 	 {name: "hit", type: "audio", src: "data/sfx/"},
 	 {name: "lose", type: "audio", src: "data/sfx/"},
 ];
+
 var BirdEntity = me.ObjectEntity.extend({
   init: function(x, y) {
     var settings = {};
@@ -94,15 +95,20 @@ var BirdEntity = me.ObjectEntity.extend({
         this.flyTween.start();
 
         this.renderable.angle = -this.maxAngleRotation;
+		
+		document.body.appendChild(document.createTextNode('this is a text node'));
+
+	    document.body.appendChild(document.createElement('br'));
+		
       } else {
-        this.gravityForce += 0.2;
+        this.gravityForce += 0.4;
         this.pos.y += me.timer.tick * this.gravityForce;
         this.renderable.angle += Number.prototype.degToRad(3) * me.timer.tick;
         if (this.renderable.angle > this.maxAngleRotationDown)
           this.renderable.angle = this.maxAngleRotationDown;
       }
     }
-
+ 
     var res = me.game.collide(this);
 
     if (res) {
@@ -385,7 +391,7 @@ game.TitleScreen = me.ScreenObject.extend({
             // renderable
             this.parent(new me.Vector2d(), 100, 100);
             //this.font = new me.Font('Arial Black', 20, 'black', 'left');
-            this.text = me.device.touch ? 'Tap to start' : 'PRESS SPACE OR CLICK LEFT MOUSE BUTTON TO START';
+            this.text = me.device.touch ? 'Tap to start' : 'PRESS SPACE OR CLICK LEFT MOUSE BUTTON TO TRAIN';
             this.font = new me.Font('gamefont', 20, '#000');
         },
         update: function () {
@@ -418,6 +424,13 @@ game.PlayScreen = me.ScreenObject.extend({
   },
 
   onResetEvent: function() {
+
+    document.body.appendChild(document.createElement('br'));
+	
+	document.body.appendChild(document.createTextNode('New Game'));
+
+    document.body.appendChild(document.createElement('br'));
+	
     me.audio.stop("theme");
     me.audio.play("theme", true);
 
