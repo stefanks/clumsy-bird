@@ -75,6 +75,7 @@ var BirdEntity = me.ObjectEntity.extend({
     this.alwaysUpdate = true;
     this.gravity = 0.2;
     this.gravityForce = 0;
+	this.guessedValue = 0;
     this.maxAngleRotation = Number.prototype.degToRad(30);
     this.maxAngleRotationDown = Number.prototype.degToRad(90);
     this.renderable.addAnimation("flying", [0, 1, 2]);
@@ -94,7 +95,8 @@ var BirdEntity = me.ObjectEntity.extend({
     // mechanics
 	gametimer++;
     if (game.data.start) {
-      if (me.input.isKeyPressed('fly')) {
+      //if (me.input.isKeyPressed('fly')) {
+      if (this.guessedValue<=this.gravityForce) {
         var currentGrav = this.gravityForce;
         this.gravityForce = 0;
 
@@ -113,11 +115,21 @@ var BirdEntity = me.ObjectEntity.extend({
 		
 	    document.body.appendChild(document.createElement('br'));
 		
-		document.body.appendChild(document.createTextNode(this.pos.y.toFixed(1) ));
-		
+		firstFeature = - Math.log(524/(80+this.pos.y)-1);
+		document.body.appendChild(document.createTextNode(firstFeature.toFixed(3) ));
 		
 		document.body.appendChild(document.createTextNode(', '));
 		
+		document.body.appendChild(document.createTextNode(pipe1pos.toFixed(3) ));
+		
+		document.body.appendChild(document.createTextNode(', '));
+		
+		document.body.appendChild(document.createTextNode(pipe2pos.toFixed(3) ));
+		
+		document.body.appendChild(document.createTextNode(', '));
+		
+		document.body.appendChild(document.createTextNode(pipe3pos.toFixed(3) )); 
+	
 		num92 = Math.ceil((gametimer-280)/92);
 		if (gametimer<=280)
 		{
@@ -127,22 +139,93 @@ var BirdEntity = me.ObjectEntity.extend({
 		{
 			timeTillPipe = 280+92*num92-gametimer;
 		}
+
+		var ye9=0;
+		var ye8=0;
+		var ye7=0;
+		var ye6=0;
+		var ye5=0;
+		var ye4=0;
+		var ye3=0;
+		var ye2=0;
+		var ye1=0;
+		var ye0=0;
+		if ( timeTillPipe >=90) 
+		{
+			var ye9=1;
 			
-		
-		document.body.appendChild(document.createTextNode(timeTillPipe)); 
-		
+		}
+		else if ( timeTillPipe>=80) 
+		{
+
+			var ye8=1;
+		}
+		else if ( timeTillPipe >=70) 
+		{
+			var ye7=1;
+			
+		}
+		else if ( timeTillPipe >=60) 
+		{
+			var ye6=1;
+			
+		}
+		else if ( timeTillPipe>=50 ) 
+		{
+
+			var ye5=1;
+		}
+		else if ( timeTillPipe >=40) 
+		{
+			var ye4=1;
+			
+		}
+		else if ( timeTillPipe >=30) 
+		{
+			var ye3=1;
+			
+		}
+		else if ( timeTillPipe>=20 ) 
+		{
+
+			var ye2=1;
+		}
+		else if ( timeTillPipe >=10) 
+		{
+			var ye1=1;
+			
+		}
+		else if ( timeTillPipe >=0) 
+		{
+			var ye0=1;
+			
+		}
 		document.body.appendChild(document.createTextNode(', '));
-		
-		document.body.appendChild(document.createTextNode(pipe1pos));
-		
+		document.body.appendChild(document.createTextNode(ye9)); 
 		document.body.appendChild(document.createTextNode(', '));
-		
-		document.body.appendChild(document.createTextNode(pipe2pos));
-		
+		document.body.appendChild(document.createTextNode(ye8)); 
 		document.body.appendChild(document.createTextNode(', '));
+		document.body.appendChild(document.createTextNode(ye7)); 
+		document.body.appendChild(document.createTextNode(', '));
+		document.body.appendChild(document.createTextNode(ye6)); 
+		document.body.appendChild(document.createTextNode(', '));
+		document.body.appendChild(document.createTextNode(ye5)); 
+		document.body.appendChild(document.createTextNode(', '));
+		document.body.appendChild(document.createTextNode(ye4)); 
+		document.body.appendChild(document.createTextNode(', '));
+		document.body.appendChild(document.createTextNode(ye3)); 
+		document.body.appendChild(document.createTextNode(', '));
+		document.body.appendChild(document.createTextNode(ye2)); 
+		document.body.appendChild(document.createTextNode(', '));
+		document.body.appendChild(document.createTextNode(ye1)); 
+		document.body.appendChild(document.createTextNode(', '));
+		document.body.appendChild(document.createTextNode(ye0)); 
 		
-		document.body.appendChild(document.createTextNode(pipe3pos)); 
+	this.guessedValue =  -4.622112e+00 * firstFeature-3.289900e-01 * pipe1pos+9.171671e+00 * pipe2pos+5.219819e-01 * pipe3pos+8.500813e-01 * firstFeature * firstFeature-2.888971e-01 * firstFeature * ye3-3.838951e-01 * firstFeature * ye4-4.112518e+00 * pipe2pos * ye1+1.624064e+00 * pipe2pos * ye4+9.447730e-02 * firstFeature * firstFeature * ye2-2.353274e-01 * firstFeature * firstFeature * ye5+1.019512e+01;
 		
+	document.body.appendChild(document.createTextNode(', '));
+		
+	document.body.appendChild(document.createTextNode(this.guessedValue.toFixed(1))); 
 		
       } else {
         this.gravityForce += 0.4;
@@ -151,6 +234,7 @@ var BirdEntity = me.ObjectEntity.extend({
         if (this.renderable.angle > this.maxAngleRotationDown)
           this.renderable.angle = this.maxAngleRotationDown;
       }
+
     }
  
     var res = me.game.collide(this);
@@ -228,22 +312,23 @@ var PipeGenerator = me.Renderable.extend({
           me.video.getHeight() - 100,
           200
       );
+	
       var posY2 = posY - me.video.getHeight() - this.pipeHoleSize;
 	  if (numpipes==0){
-	  pipe1pos = (posY + posY2)/2;
+	  pipe1pos = (posY -350)/300;
 	  }
 	  if (numpipes==1){
-	  pipe2pos = (posY + posY2)/2;
+	  pipe2pos = (posY -350)/300;
 	  	
 	  }
 	  if (numpipes==2){
 
-		  pipe3pos = (posY + posY2)/2;
+		  pipe3pos = (posY -350)/300;
 	  }
 	  if (numpipes>=3){
 	  pipe1pos = pipe2pos;
 	  pipe2pos = pipe3pos;
-	  pipe3pos = (posY + posY2)/2;  	
+	  pipe3pos = (posY -350)/300; 	
 	  }
 	  numpipes+=1;
       var pipe1 = new me.pool.pull("pipe", this.posX, posY);
@@ -492,9 +577,9 @@ game.PlayScreen = me.ScreenObject.extend({
 
     document.body.appendChild(document.createElement('br'));
 	
-	pipe1pos = -me.game.viewport.height;
-	pipe2pos = -me.game.viewport.height;
-    pipe3pos = -me.game.viewport.height;
+	pipe1pos = 0;
+	pipe2pos = 0;
+    pipe3pos = 0;
 	
 
     gametimer = 0;
