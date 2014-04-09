@@ -1,9 +1,14 @@
-var pipe1pos = 0;
-var pipe2pos = 0;
-var pipe3pos = 0;
+var f2 = 0;
+var f3 = 0;
+var f4 = 0;
 var numpipes = 0;
 var distToClosestPipe = 0;
 var gametimer=0;
+
+// this.guessedValue =-4.753737e+00 * f1-3.030257e-01 * f2+1.018181e+01 * f3-1.356950e-01 * f4+9.817915e-01 * f1 * f1-1.708607e+00 * f1 * f3-4.415260e-01 * f1 * (18<= f5 && f5 < 27 ? 1 : 0)-3.041377e-01 * f1 * (27<= f5 && f5 < 36 ? 1 : 0)+2.512934e-01 * f1 * (45<= f5 && f5 < 54 ? 1 : 0)+1.036534e-01 * f1 * (72<= f5 && f5 < 81 ? 1 : 0)+3.480246e+00 * f2 * (45<= f5 && f5 < 54 ? 1 : 0)+2.041391e+00 * f3 * (18<= f5 && f5 < 27 ? 1 : 0)+1.645207e+00 * f3 * (27<= f5 && f5 < 36 ? 1 : 0)-2.084477e+00 * f4 * (45<= f5 && f5 < 54 ? 1 : 0)+8.371318e-02 * f1 * f1 * (0<= f5 && f5 < 9 ? 1 : 0)-1.387397e-01 * f1 * f1 * (45<= f5 && f5 < 54 ? 1 : 0)-3.363918e-02 * f1 * f1 * (54<= f5 && f5 < 63 ? 1 : 0)+2.809757e-02 * f1 * f1 * (81<= f5 && f5 < 90 ? 1 : 0)-5.699793e-01 * f1 * f3 * (36<= f5 && f5 < 45 ? 1 : 0)-3.344254e+00 * f1 * f3 * (45<= f5 && f5 < 54 ? 1 : 0)+1.053038e+01;
+
+
+var	guessedValueString;
 
 var game = {
   data: {
@@ -26,6 +31,7 @@ var game = {
   },
 
   "loaded": function() {
+    // guessedValueString = prompt("Bot", "Type your answer here:");
     me.state.set(me.state.MENU, new game.TitleScreen());
     me.state.set(me.state.PLAY, new game.PlayScreen());
     me.state.set(me.state.GAME_OVER, new game.GameOverScreen());
@@ -109,117 +115,40 @@ var BirdEntity = me.ObjectEntity.extend({
         this.renderable.angle = -this.maxAngleRotation;
 
 		
+		document.body.appendChild(document.createTextNode(', '));
+		
 		document.body.appendChild(document.createTextNode(currentGrav.toFixed(1)));
-		
-		document.body.appendChild(document.createTextNode(', '));
-		
-		firstFeature = - Math.log(524/(80+this.pos.y)-1);
-		document.body.appendChild(document.createTextNode(firstFeature.toFixed(3) ));
-		
-		document.body.appendChild(document.createTextNode(', '));
-		
-		document.body.appendChild(document.createTextNode(pipe1pos.toFixed(3) ));
-		
-		document.body.appendChild(document.createTextNode(', '));
-		
-		document.body.appendChild(document.createTextNode(pipe2pos.toFixed(3) ));
-		
-		document.body.appendChild(document.createTextNode(', '));
-		
-		document.body.appendChild(document.createTextNode(pipe3pos.toFixed(3) )); 
-	
-		timeTillPipe  =gametimer % 90;
-	
-
-		var ye9=0;
-		var ye8=0;
-		var ye7=0;
-		var ye6=0;
-		var ye5=0;
-		var ye4=0;
-		var ye3=0;
-		var ye2=0;
-		var ye1=0;
-		var ye0=0;
-		if ( timeTillPipe >=81) 
-		{
-			var ye9=1;
-			
-		}
-		else if ( timeTillPipe>=72) 
-		{
-
-			var ye8=1;
-		}
-		else if ( timeTillPipe >=63) 
-		{
-			var ye7=1;
-			
-		}
-		else if ( timeTillPipe >=54) 
-		{
-			var ye6=1;
-			
-		}
-		else if ( timeTillPipe>=45 ) 
-		{
-
-			var ye5=1;
-		}
-		else if ( timeTillPipe >=36) 
-		{
-			var ye4=1;
-			
-		}
-		else if ( timeTillPipe >=27) 
-		{
-			var ye3=1;
-			
-		}
-		else if ( timeTillPipe>=18 ) 
-		{
-
-			var ye2=1;
-		}
-		else if ( timeTillPipe >=9) 
-		{
-			var ye1=1;
-			
-		}
-		else if ( timeTillPipe >=0) 
-		{
-			var ye0=1;
-			
-		}
-		document.body.appendChild(document.createTextNode(', '));
-		document.body.appendChild(document.createTextNode(ye9)); 
-		document.body.appendChild(document.createTextNode(', '));
-		document.body.appendChild(document.createTextNode(ye8)); 
-		document.body.appendChild(document.createTextNode(', '));
-		document.body.appendChild(document.createTextNode(ye7)); 
-		document.body.appendChild(document.createTextNode(', '));
-		document.body.appendChild(document.createTextNode(ye6)); 
-		document.body.appendChild(document.createTextNode(', '));
-		document.body.appendChild(document.createTextNode(ye5)); 
-		document.body.appendChild(document.createTextNode(', '));
-		document.body.appendChild(document.createTextNode(ye4)); 
-		document.body.appendChild(document.createTextNode(', '));
-		document.body.appendChild(document.createTextNode(ye3)); 
-		document.body.appendChild(document.createTextNode(', '));
-		document.body.appendChild(document.createTextNode(ye2)); 
-		document.body.appendChild(document.createTextNode(', '));
-		document.body.appendChild(document.createTextNode(ye1)); 
-		document.body.appendChild(document.createTextNode(', '));
-		document.body.appendChild(document.createTextNode(ye0)); 
-
 		
 	    document.body.appendChild(document.createElement('br'));
 		
-	// this.guessedValue =  -4.622112e+00 * firstFeature-3.289900e-01 * pipe1pos+9.171671e+00 * pipe2pos+5.219819e-01 * pipe3pos+8.500813e-01 * firstFeature * firstFeature-2.888971e-01 * firstFeature * ye3-3.838951e-01 * firstFeature * ye4-4.112518e+00 * pipe2pos * ye1+1.624064e+00 * pipe2pos * ye4+9.447730e-02 * firstFeature * firstFeature * ye2-2.353274e-01 * firstFeature * firstFeature * ye5+1.019512e+01;
+		f1 = - Math.log(524/(80+this.pos.y)-1);
+		document.body.appendChild(document.createTextNode(f1.toFixed(3) ));
 		
-	//document.body.appendChild(document.createTextNode(', '));
+		document.body.appendChild(document.createTextNode(', '));
 		
-	//document.body.appendChild(document.createTextNode(this.guessedValue.toFixed(1))); 
+		document.body.appendChild(document.createTextNode(f2.toFixed(3) ));
+		
+		document.body.appendChild(document.createTextNode(', '));
+		
+		document.body.appendChild(document.createTextNode(f3.toFixed(3) ));
+		
+		document.body.appendChild(document.createTextNode(', '));
+		
+		document.body.appendChild(document.createTextNode(f4.toFixed(3) )); 
+	
+		f5  =gametimer % 90;
+	
+		    
+		document.body.appendChild(document.createTextNode(', '));
+		document.body.appendChild(document.createTextNode(f5)); 
+	
+		
+		eval(guessedValueString)
+		
+		
+	  //document.body.appendChild(document.createTextNode(', '));
+		
+	  //document.body.appendChild(document.createTextNode(this.guessedValue.toFixed(1))); 
 		
       } else {
         this.gravityForce += 0.4;
@@ -309,20 +238,20 @@ var PipeGenerator = me.Renderable.extend({
 	
       var posY2 = posY - me.video.getHeight() - this.pipeHoleSize;
 	  if (numpipes==0){
-	  pipe1pos = (posY -350)/300;
+	  f2 = (posY -350)/300;
 	  }
 	  if (numpipes==1){
-	  pipe2pos = (posY -350)/300;
+	  f3 = (posY -350)/300;
 	  	
 	  }
 	  if (numpipes==2){
 
-		  pipe3pos = (posY -350)/300;
+		  f4 = (posY -350)/300;
 	  }
 	  if (numpipes>=3){
-	  pipe1pos = pipe2pos;
-	  pipe2pos = pipe3pos;
-	  pipe3pos = (posY -350)/300; 	
+	  f2 = f3;
+	  f3 = f4;
+	  f4 = (posY -350)/300; 	
 	  }
 	  numpipes+=1;
       var pipe1 = new me.pool.pull("pipe", this.posX, posY);
@@ -568,9 +497,9 @@ game.PlayScreen = me.ScreenObject.extend({
     document.body.appendChild(document.createElement('br'));
 	
 	
-	pipe1pos = 0;
-	pipe2pos = 0;
-    pipe3pos = 0;
+	f2 = 0;
+	f3 = 0;
+    f4 = 0;
 	
 
     gametimer = 0;
